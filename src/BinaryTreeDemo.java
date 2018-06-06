@@ -108,6 +108,12 @@ public class BinaryTreeDemo {
     }
 
     //非递归版后序遍历
+    //思路：
+    //  1. 将根结点压入栈
+    //  2. 将栈顶结点推出栈并设置为当前结点
+    //  3. 若当前结点左右孩子为空或者当前左右孩子已经被访问过并输出了数据，则输出当前结点数据
+    //  4. 若不满足3的条件则将当前结点的左右孩子压入栈中，重复第2步
+    //  5. 直到栈为空方可停止遍历
     static void postOrderTraverse(TreeNode tree){
         Stack<TreeNode> stack = new Stack<>();
         TreeNode tCur = tree;
