@@ -176,10 +176,12 @@ public class BinaryTreeDemo {
         System.out.println("层序遍历");
         levelOrderTraverse(tree);
     }
+
+    private static class TreeNode {
+        char data;
+        TreeNode lNode;
+        TreeNode rNode;
+    }
 }
 
-class TreeNode {
-    char data;
-    TreeNode lNode;
-    TreeNode rNode;
-}
+
