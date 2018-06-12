@@ -42,13 +42,13 @@ public class BalancedBinarySearchTreeDemo {
         TreeNode r;
         r=tree.rNode;
         tree.rNode=r.lNode;
-        r.rNode=tree;
+        r.lNode=tree;
         tree=r;
         return tree;
     }
 
     /**
-     * 左平衡操作(还是没明白平衡因子的转换)
+     * 左平衡操作
      * @param tree
      * @return
      */
@@ -76,13 +76,18 @@ public class BalancedBinarySearchTreeDemo {
                         break;
                 }
                 lr.bf=EH;
-                L_Rotate(tree.lNode);
-                R_Rotate(tree);
+                tree.lNode=L_Rotate(tree.lNode);
+                tree=R_Rotate(tree);
                 break;
         }
         return tree;
     }
 
+    /**
+     * 右平衡操作
+     * @param tree
+     * @return
+     */
     static TreeNode RightBalance(TreeNode tree){
         TreeNode r,rl;
         r=tree.rNode;
@@ -107,13 +112,20 @@ public class BalancedBinarySearchTreeDemo {
                         break;
                 }
                 rl.bf=EH;
-                tree=R_Rotate(tree.rNode);
+                tree.rNode=R_Rotate(tree.rNode);
                 tree=L_Rotate(tree);
                 break;
         }
         return tree;
     }
 
+    /**
+     *
+     * @param tree
+     * @param data
+     * @param taller
+     * @return
+     */
     static TreeNode InsertAVL(TreeNode tree,int data,Taller taller){
         if(tree==null){
             tree=new TreeNode();
@@ -131,6 +143,7 @@ public class BalancedBinarySearchTreeDemo {
                 if (n==null){//未插入
                     return null;
                 }
+                tree.lNode=n;
                 if (taller.taller){//已插入到左子树中并且左子树“长高”
                     switch (tree.bf){
                         case LH:
@@ -152,6 +165,7 @@ public class BalancedBinarySearchTreeDemo {
                 if (n==null){//未插入
                     return null;
                 }
+                tree.rNode=n;
                 if (taller.taller){
                     switch (tree.bf){
                         case LH:
@@ -177,7 +191,24 @@ public class BalancedBinarySearchTreeDemo {
         boolean taller;
     }
 
+
+
     public static void main(String[] args) {
+        //不平衡情况：
+//        1. 左左
+//        int[] n={6,3,7,1,4,2};
+//        2. 左右
+//        int[] n={6,2,7,1,4,3};
+//        3. 右左
+//        int[] n={2,1,5,3,6,4};
+//        4. 右右
+        int[] n={2,1,4,3,6,5};
+        TreeNode node=null;
+        for (int i :
+                n) {
+            Taller taller=new Taller();
+            node=InsertAVL(node,i,taller);
+        }
 
     }
 }
