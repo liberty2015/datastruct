@@ -2,8 +2,6 @@
  * Created by Administrator on 2018/6/7.
  */
 
-import java.util.List;
-
 /**
  * 平衡二叉树
  * 定义：一种每个节点的左右子树高度差不大于1的二叉排序树
@@ -116,8 +114,70 @@ public class BalancedBinarySearchTreeDemo {
         return tree;
     }
 
-    static TreeNode InsertAVL(TreeNode tree,int data){
-
+    static TreeNode InsertAVL(TreeNode tree,int data,Taller taller){
+        if(tree==null){
+            tree=new TreeNode();
+            tree.data=data;
+            tree.bf=EH;
+            taller.taller=true;
+            return tree;
+        }else {
+            if (data==tree.data){//已存在则不插入
+                taller.taller=false;
+                return null;
+            }
+            if (data<tree.data){
+                TreeNode n=InsertAVL(tree.lNode,data,taller);
+                if (n==null){//未插入
+                    return null;
+                }
+                if (taller.taller){//已插入到左子树中并且左子树“长高”
+                    switch (tree.bf){
+                        case LH:
+                            tree=LeftBalance(tree);
+                            taller.taller=false;
+                            break;
+                        case EH:
+                            tree.bf=LH;
+                            taller.taller=true;
+                            break;
+                        case RH:
+                            tree.bf=EH;
+                            taller.taller=false;
+                            break;
+                    }
+                }
+            }else {
+                TreeNode n=InsertAVL(tree.rNode,data,taller);
+                if (n==null){//未插入
+                    return null;
+                }
+                if (taller.taller){
+                    switch (tree.bf){
+                        case LH:
+                            tree.bf=EH;
+                            taller.taller=false;
+                            break;
+                        case EH:
+                            tree.bf=RH;
+                            taller.taller=true;
+                            break;
+                        case RH:
+                            tree=RightBalance(tree);
+                            taller.taller=false;
+                            break;
+                    }
+                }
+            }
+        }
         return tree;
+    }
+
+    static class Taller{
+        boolean taller;
+    }
+
+    public static void main(String[] args) {
+
     }
 }
