@@ -2,6 +2,8 @@
  * Created by Administrator on 2018/6/7.
  */
 
+import java.util.List;
+
 /**
  * 平衡二叉树
  * 定义：一种每个节点的左右子树高度差不大于1的二叉排序树
@@ -83,7 +85,38 @@ public class BalancedBinarySearchTreeDemo {
         return tree;
     }
 
-    static TreeNode InsertAVL(TreeNode tree){
+    static TreeNode RightBalance(TreeNode tree){
+        TreeNode r,rl;
+        r=tree.rNode;
+        switch (r.bf){
+            case RH:
+                tree.bf=r.bf=EH;
+                tree=L_Rotate(tree);
+                break;
+            case LH:
+                rl=r.lNode;
+                switch (rl.bf){
+                    case LH:
+                        tree.bf=EH;
+                        r.bf=RH;
+                        break;
+                    case EH:
+                        tree.bf=r.bf=EH;
+                        break;
+                    case RH:
+                        tree.bf= LH;
+                        r.bf=EH;
+                        break;
+                }
+                rl.bf=EH;
+                tree=R_Rotate(tree.rNode);
+                tree=L_Rotate(tree);
+                break;
+        }
+        return tree;
+    }
+
+    static TreeNode InsertAVL(TreeNode tree,int data){
 
         return tree;
     }
