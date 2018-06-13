@@ -1,5 +1,5 @@
 /**
- * Created by Administrator on 2018/6/7.
+ * Created by Liberty on 2018/6/7.
  */
 
 /**
@@ -120,7 +120,7 @@ public class BalancedBinarySearchTreeDemo {
     }
 
     /**
-     *
+     * 插入操作
      * @param tree
      * @param data
      * @param taller
