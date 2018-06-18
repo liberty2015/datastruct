@@ -50,7 +50,18 @@ public class BinarySortTreeDemo {
         }
     }
 
-    static boolean deleteBST(TreeNode node){
+    static boolean deleteBST(TreeNode tree,int key){
+        if (tree==null)
+            return false;
+        if (key==tree.data)
+            return delete(tree);
+        else if (key<tree.data)
+            return deleteBST(tree.lNode,key);
+        else
+            return deleteBST(tree.rNode,key);
+    }
+
+    static boolean delete(TreeNode node){
         TreeNode q,s;
         if (node.rNode==null){
             q=node;
@@ -88,6 +99,10 @@ public class BinarySortTreeDemo {
         }
         System.out.println();
     }
+
+    /**
+     * 寻找（中序）后继节点
+     */
 
     private static class TreeNode {
         int data;
