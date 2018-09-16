@@ -1,4 +1,4 @@
-/**
+package tree; /**
  * Created by Liberty on 2018/6/7.
  */
 /**
@@ -28,6 +28,12 @@ public class BinarySortTreeDemo {
         }
     }
 
+    /**
+     * 相等重复的值不需要重复插入
+     * @param tree
+     * @param key
+     * @return
+     */
     static TreeNode insertBST(TreeNode tree,int key){
         TreeNode p=null,s=null;
         p=searchBST(tree,null,key);

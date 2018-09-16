@@ -1,4 +1,4 @@
-/**
+package tree; /**
  * Created by Liberty on 2018/6/7.
  */
 
@@ -186,6 +186,54 @@ public class BalancedBinarySearchTreeDemo {
         }
         return tree;
     }
+
+    static boolean deleteAVL(TreeNode tree,int key){
+        if (tree==null)
+            return false;
+        if (key==tree.data)
+            return delete(tree);
+        else if (key<tree.data)
+            return deleteAVL(tree.lNode,key);
+        else
+            return deleteAVL(tree.rNode,key);
+    }
+
+    static boolean delete(TreeNode node){
+        TreeNode q,s;
+        if (node.rNode==null){
+            q=node;
+            node=node.lNode;
+            q=null;
+        }else if (node.lNode==null){
+            q=node;
+            node=node.rNode;
+            q=null;
+        }else {
+            q=node;
+            s=node.lNode;
+            //在左子树中找到值最大的结点
+            while (s.rNode!=null){
+                q=s;
+                s=s.rNode;
+            }
+            node.data=s.data;
+            if (node==q){
+                q.lNode=s.lNode;
+            }else {
+                q.rNode=s.lNode;
+            }
+            s=null;
+        }
+        return true;
+    }
+
+//    private static TreeNode fixAfterDeletion(TreeNode tree){
+//        if (tree==null){
+//            return null;
+//        }else {
+//            if (tree.bf>)
+//        }
+//    }
 
     static class Taller{
         boolean taller;

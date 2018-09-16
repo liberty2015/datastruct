@@ -1,3 +1,5 @@
+package tree;
+
 /**
  * Created by liberty on 2018/6/18.
  */
@@ -35,12 +37,15 @@ public class InorderSuccessorInBST {
     public TreeNode inorderSuccessor(TreeNode root,TreeNode p){
         if (p==null)
             return null;
+        //0. p为最大节点，因此没有后继，返回空
         if (getLastEntry(root)==p)
             return null;
+        //1. p有右子树
         if (p.rNode!=null)
             return getFirstEntry(p.rNode);
         TreeNode parent=root;
         TreeNode temp=root;
+        //2. p没有右子树
         while (parent!=null){
             if (parent.data==p.data){
                 break;
