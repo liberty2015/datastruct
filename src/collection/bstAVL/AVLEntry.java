@@ -2,11 +2,13 @@ package collection.bstAVL;
 
 import java.util.Map;
 
-public class AVLEntry<K,V> implements Map.Entry<K,V> {
+public class AVLEntry<K, V> implements Map.Entry<K, V> {
     public K key;
     public V value;
-    public AVLEntry<K,V> left;
-    public AVLEntry<K,V> right;
+    public AVLEntry<K, V> left;
+    public AVLEntry<K, V> right;
+    public AVLEntry<K, V> parent;
+    public int height = 1;
 
     @Override
     public K getKey() {
@@ -20,13 +22,19 @@ public class AVLEntry<K,V> implements Map.Entry<K,V> {
 
     @Override
     public V setValue(V value) {
-        this.value=value;
+        this.value = value;
         return value;
     }
 
     public AVLEntry(K key, V value) {
         this.key = key;
         this.value = value;
+    }
+
+    public AVLEntry(K key,V value,AVLEntry<K,V> parent){
+        this.key = key;
+        this.value = value;
+        this.parent=parent;
     }
 
     public AVLEntry(K key) {
@@ -47,6 +55,7 @@ public class AVLEntry<K,V> implements Map.Entry<K,V> {
         return "AVLEntry{" +
                 "key=" + key +
                 ", value=" + value +
+                ", height=" + height +
 //                ", left=" + left +
 //                ", right=" + right +
                 '}';
