@@ -23,11 +23,13 @@ public class ConvertSortedArrayToBinarySearchTree {
      * @return
      */
     private TreeNode<Integer> buildFromSorted(int lo,int hi,int[] nums){
+        //为什么不能是>=
         if (lo>hi){
             return null;
         }
         int mid=(lo+hi)>>>1;
         TreeNode<Integer> left=null;
+        //为什么不能是<=
         if (lo<mid){
             left=buildFromSorted(lo,mid-1,nums);
         }
@@ -40,6 +42,7 @@ public class ConvertSortedArrayToBinarySearchTree {
             middle.left=left;
         }
         TreeNode<Integer> right=null;
+        //为什么不能是<=
         if (mid<hi){
             right=buildFromSorted(mid+1,hi,nums);
         }
