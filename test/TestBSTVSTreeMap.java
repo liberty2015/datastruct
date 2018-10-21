@@ -76,8 +76,13 @@ public class TestBSTVSTreeMap {
 
     @Test
     public void testConvertSortedArrayToBinarySearchTree(){
-        int[] array={-10,-3,0,5,9};
+        int[] array={1,2,3,4,5,6,7};
         TreeNode treeNode = new ConvertSortedArrayToBinarySearchTree().sortedArrayToBST(array);
         System.out.println(treeNode);
+    }
+
+    @Test
+    public void testCal(){
+        System.out.println(3&1);
     }
 }
