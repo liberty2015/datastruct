@@ -1,5 +1,7 @@
 import collection.bstAVL.AVLMap;
 import org.junit.Test;
+import tree.ConvertSortedArrayToBinarySearchTree;
+import tree.TreeNode;
 
 import java.util.Random;
 import java.util.TreeMap;
@@ -70,5 +72,17 @@ public class TestBSTVSTreeMap {
         for (int i = 0; i < MAX; i++) {
             map.get(random.nextInt(MAX));
         }
+    }
+
+    @Test
+    public void testConvertSortedArrayToBinarySearchTree(){
+        int[] array={1,2,3,4,5,6,7};
+        TreeNode treeNode = new ConvertSortedArrayToBinarySearchTree().sortedArrayToBST(array);
+        System.out.println(treeNode);
+    }
+
+    @Test
+    public void testCal(){
+        System.out.println(3&1);
     }
 }

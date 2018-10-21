@@ -340,7 +340,7 @@ public class AVLMap<K, V> implements Iterable<AVLEntry<K, V>> {
         AVLEntry<K, V> e = entry;
         while (e != null) {
             int newHeight = Math.max(getHeight(e.left), getHeight(e.right)) + 1;
-            if (e.height>1&&newHeight==e.height){
+            if (e.height > 1 && newHeight == e.height) {
                 return;
             }
             e.height = newHeight;
@@ -384,13 +384,13 @@ public class AVLMap<K, V> implements Iterable<AVLEntry<K, V>> {
      */
     private boolean postOrderCheckBalance(AVLEntry<K, V> p) {
         if (p != null) {
-            if(postOrderCheckBalance(p.left)){
-                if (postOrderCheckBalance(p.right)){
+            if (postOrderCheckBalance(p.left)) {
+                if (postOrderCheckBalance(p.right)) {
                     return Math.abs(getHeight(p.left) - getHeight(p.right)) <= 1;
-                }else {
+                } else {
                     return false;
                 }
-            }else {
+            } else {
                 return false;
             }
         }
@@ -400,6 +400,7 @@ public class AVLMap<K, V> implements Iterable<AVLEntry<K, V>> {
     /**
      * --------------------------------------------------
      * 二叉查找树
+     * 删除
      * 分3种情况：
      * 1. p是叶子节点，直接删除
      * 2. p只有左子树或右子树，直接用左子树或右子树替换
@@ -444,6 +445,38 @@ public class AVLMap<K, V> implements Iterable<AVLEntry<K, V>> {
         } else {
             AVLEntry<K, V> newRight = deleteEntry(p.right, key);
             p.right = newRight;
+        }
+        p = fixAfterDeletion(p);
+        return p;
+    }
+
+    /**
+     * 平衡二叉树
+     * 删除
+     * 假设删除了p右子树的某个节点，导致p的平衡因子d[p]=2，分析p的左子树left
+     * 分3种情况：
+     * 1. left的平衡因子d[left]=1，将p右旋
+     * 2. left的平衡因子d[left]=0，将p右旋
+     * 3. left的平衡因子d[left]=-1，先左旋left，再右旋p
+     * 删除左子树，d[p]=-2的情况，和d[p]=2对称
+     */
+    private AVLEntry<K, V> fixAfterDeletion(AVLEntry<K, V> p) {
+        if (p == null) {
+            return null;
+        }
+        int d = getHeight(p.left) - getHeight(p.right);
+        if (d == 2) {
+            if (getHeight(p.left.left) - getHeight(p.left.right) >= 0) {
+                p = rotateRight(p);
+            } else {
+                p = firstLeftThenRight(p);
+            }
+        } else if (d == -2) {
+            if (getHeight(p.right.left) - getHeight(p.right.right) >= 0) {
+                p = rotateLeft(p);
+            } else {
+                p = firstRightThenLeft(p);
+            }
         }
         return p;
     }
